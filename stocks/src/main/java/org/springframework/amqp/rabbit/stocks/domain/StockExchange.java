@@ -23,6 +23,6 @@ package org.springframework.amqp.rabbit.stocks.domain;
  */
 public enum StockExchange {
 
-	nyse, nasdaq;
+	nyse, nasdaq
 
 }

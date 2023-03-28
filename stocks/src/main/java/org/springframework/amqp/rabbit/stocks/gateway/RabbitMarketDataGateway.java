@@ -38,11 +38,11 @@ import org.springframework.amqp.rabbit.stocks.domain.StockExchange;
  */
 public class RabbitMarketDataGateway extends RabbitGatewaySupport implements MarketDataGateway {
 
-	private static Log logger = LogFactory.getLog(RabbitMarketDataGateway.class);
+	private static final Log logger = LogFactory.getLog(RabbitMarketDataGateway.class);
 
 	private static final Random random = new Random();
 
-	private final List<MockStock> stocks = new ArrayList<MockStock>();
+	private final List<MockStock> stocks = new ArrayList<>();
 
 
 	public RabbitMarketDataGateway() {
@@ -78,7 +78,7 @@ public class RabbitMarketDataGateway extends RabbitGatewaySupport implements Mar
 	}
 
 
-	private static class MockStock extends Stock {
+	private static final class MockStock extends Stock {
 
 		private final int basePrice;
 		private final DecimalFormat twoPlacesFormat = new DecimalFormat("0.00");

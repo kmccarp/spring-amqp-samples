@@ -94,8 +94,7 @@ public abstract class AbstractStockAppRabbitConfiguration {
 	 */
 	@Bean
 	public AmqpAdmin amqpAdmin() {
-		RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory());
-		return rabbitAdmin ;
+		return new RabbitAdmin(connectionFactory()) ;
 	}
 
 }

@@ -33,9 +33,9 @@ import org.springframework.amqp.rabbit.stocks.service.ExecutionVenueService;
  */
 public class ExecutionVenueServiceStub implements ExecutionVenueService {
 
-	private static Log log = LogFactory.getLog(ExecutionVenueServiceStub.class);
-	
-	private Random random = new Random();
+	private static final Log log = LogFactory.getLog(ExecutionVenueServiceStub.class);
+
+	private final Random random = new Random();
 	
 	public TradeResponse executeTradeRequest(TradeRequest request) {
 		TradeResponse response = new TradeResponse();
