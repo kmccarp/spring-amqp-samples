@@ -36,11 +36,11 @@ import org.springframework.util.StringUtils;
  */
 public class ServerHandler {
 
-    private ExecutionVenueService executionVenueService;
+	private final ExecutionVenueService executionVenueService;
 
-    private CreditCheckService creditCheckService;
+	private final CreditCheckService creditCheckService;
 
-    private TradingService tradingService;
+	private final TradingService tradingService;
     
     
 	

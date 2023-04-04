@@ -48,9 +48,9 @@ public class QuoteController {
 
 	private StockServiceGateway stockServiceGateway;
 
-	private ConcurrentMap<String, TradeResponse> responses = new ConcurrentHashMap<String, TradeResponse>();
+	private ConcurrentMap<String, TradeResponse> responses = new ConcurrentHashMap<>();
 
-	private Queue<Quote> quotes = new PriorityBlockingQueue<Quote>(100, new QuoteComparator());
+	private Queue<Quote> quotes = new PriorityBlockingQueue<>(100, new QuoteComparator());
 
 	private long timeout = 30000; // 30 seconds of data
 
@@ -62,7 +62,7 @@ public class QuoteController {
 		logger.info("Client received: " + response);
 		String key = response.getRequestId();
 		responses.putIfAbsent(key, response);
-		Collection<TradeResponse> queue = new ArrayList<TradeResponse>(responses.values());
+		Collection<TradeResponse> queue = new ArrayList<>(responses.values());
 		long timestamp = System.currentTimeMillis() - timeout;
 		for (Iterator<TradeResponse> iterator = queue.iterator(); iterator.hasNext();) {
 			TradeResponse tradeResponse = iterator.next();
@@ -90,7 +90,7 @@ public class QuoteController {
 		if (timestamp == null) {
 			timestamp = 0L;
 		}
-		ArrayList<Quote> list = new ArrayList<Quote>();
+		ArrayList<Quote> list = new ArrayList<>();
 		for (Quote quote : quotes) {
 			if (quote.getTimestamp() > timestamp) {
 				list.add(quote);
@@ -124,14 +124,13 @@ public class QuoteController {
 	@RequestMapping(value = "/trade", method = RequestMethod.GET)
 	@ResponseBody
 	public TradeResponse response(@RequestParam String requestId) {
-		TradeResponse result = responses.get(requestId);
-		return result;
+		return responses.get(requestId);
 	}
 
 	private static class QuoteComparator implements Comparator<Quote> {
 
 		public int compare(Quote o1, Quote o2) {
-			return new Long(o1.getTimestamp() - o2.getTimestamp()).intValue();
+			return Long.valueOf(o1.getTimestamp() - o2.getTimestamp()).intValue();
 		}
 
 	}

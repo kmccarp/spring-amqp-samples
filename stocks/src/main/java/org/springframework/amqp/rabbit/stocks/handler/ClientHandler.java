@@ -32,7 +32,7 @@ import org.springframework.amqp.rabbit.stocks.ui.StockController;
  */
 public class ClientHandler {
 
-	private static Log log = LogFactory.getLog(ClientHandler.class);
+	private static final Log log = LogFactory.getLog(ClientHandler.class);
 
 	private StockController stockController;
 
