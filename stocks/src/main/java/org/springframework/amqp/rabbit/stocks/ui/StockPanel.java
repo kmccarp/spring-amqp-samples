@@ -17,8 +17,6 @@
 package org.springframework.amqp.rabbit.stocks.ui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.DecimalFormat;
@@ -33,17 +31,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.springframework.amqp.rabbit.stocks.domain.Quote;
 import org.springframework.amqp.rabbit.stocks.domain.Stock;
 import org.springframework.amqp.rabbit.stocks.domain.TradeResponse;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * A typical poor mans UI to drive the application.  
@@ -53,6 +43,8 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 @SuppressWarnings("serial")
 public class StockPanel extends JPanel {
+
+	private static final long serialVersionUID = 1;
 
 	private static Log log = LogFactory.getLog(StockPanel.class);
 
@@ -96,10 +88,8 @@ public class StockPanel extends JPanel {
 			}
 		});
 
-		tradeRequestButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sendTradeRequest();
-			}
+		tradeRequestButton.addActionListener(e -> {
+			sendTradeRequest();
 		});
 	}
 
@@ -128,22 +118,18 @@ public class StockPanel extends JPanel {
 	}
 
 	public void displayQuote(final Quote quote) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Stock stock = quote.getStock();
-				marketDataTextArea.append(stock.getTicker() + " " + quote.getPrice() + "\n");
-			}
+		SwingUtilities.invokeLater(() -> {
+			Stock stock = quote.getStock();
+			marketDataTextArea.append(stock.getTicker() + " " + quote.getPrice() + "\n");
 		});
 	}
 
 	public void update(final TradeResponse tradeResponse) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				tradeRequestTextField.setForeground(Color.GREEN);
-				tradeRequestTextField.setText("Confirmed. "
-						+ tradeResponse.getTicker() + " "
-						+ frmt.format(tradeResponse.getPrice().doubleValue()));
-			}
+		SwingUtilities.invokeLater(() -> {
+			tradeRequestTextField.setForeground(Color.GREEN);
+			tradeRequestTextField.setText("Confirmed. "
+			+ tradeResponse.getTicker() + " "
+			+ frmt.format(tradeResponse.getPrice().doubleValue()));
 		});
 	}
 
