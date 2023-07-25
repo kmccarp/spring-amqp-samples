@@ -67,10 +67,10 @@ public class Application {
 		rabbitTemplate.send(RECEIVE_AND_CONVERT_QUEUE, jsonMessage);
 
 		Foo foo = jsonRabbitTemplate.receiveAndConvert(RECEIVE_AND_CONVERT_QUEUE, 10_000,
-				new ParameterizedTypeReference<Foo>() { });
+				new ParameterizedTypeReference<>() { });
 		System.out.println("Expected a Foo, got a " + foo);
 		Bar bar = jsonRabbitTemplate.receiveAndConvert(RECEIVE_AND_CONVERT_QUEUE, 10_000,
-				new ParameterizedTypeReference<Bar>() { });
+				new ParameterizedTypeReference<>() { });
 		System.out.println("Expected a Bar, got a " + bar);
 
 		// Mapped type information with legacy POJO listener
