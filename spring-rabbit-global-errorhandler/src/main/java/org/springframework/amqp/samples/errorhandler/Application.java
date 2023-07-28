@@ -34,9 +34,7 @@ public class Application {
 
 	private void runDemo(RabbitTemplate template) throws Exception {
 		template.convertAndSend(TEST_QUEUE, new Foo("bar"));
-		template.convertAndSend(TEST_QUEUE, new Foo("bar"), m -> {
-			return new Message("some bad json".getBytes(), m.getMessageProperties());
-		});
+		template.convertAndSend(TEST_QUEUE, new Foo("bar"), m -> new Message("some bad json".getBytes(), m.getMessageProperties()));
 		Thread.sleep(5000);
 	}
 
